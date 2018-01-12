@@ -5,23 +5,27 @@ Default user pi/raspberry
 
 #### Activate SSH:
 ```
-sudo raspi-config```
+sudo raspi-config
+```
 
 #### Install NodeJS:
 ```
 wget https://nodejs.org/dist/v9.4.0/node-v9.4.0-linux-armv7l.tar.gz
 tar -xvf node-v9.4.0-linux-armv7l.tar.gz
 cd node-v9.4.0-linux-armv7l
-sudo cp -R * /usr/local/```
+sudo cp -R * /usr/local/
+```
 
 #### Test Installation:
 ```
 node -v
-npm -v```
+npm -v
+```
 
 #### Get Repo:
 ```
-git clone https://github.com/makio135/printbox.github```
+git clone https://github.com/makio135/printbox.github
+```
 
 Based on following NPM Packages:
 - [Node Serialport](https://github.com/node-serialport/node-serialport)
@@ -29,5 +33,6 @@ Based on following NPM Packages:
 
 #### Find USB Port
 ```
-cd /dev/ ls```
+cd /dev/ ls
+```
 Plug Arduino USB, then repeat previous command and search new port (something like ttyACM0).
