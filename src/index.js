@@ -1,19 +1,20 @@
-const fetch = require('node-fetch'),
+const config = require( './config' ),
+	fetch = require( 'node-fetch' ),
 	express = require( 'express' ),
 	app = express(),
-	server = require('http').Server(app),
-	io = require('socket.io').listen(server);
+	server = require( 'http' ).Server( app ),
+	io = require( 'socket.io' ).listen( server );
 
 let authentication_token_1dlab = null,
 	uuid_1dlab = null;
 
 let baseUrl_1dlab = 'https://api.divercities.eu/';
 fetch( baseUrl_1dlab + 'v2/session', {
-	    method: 'POST', // or 'PUT'
+	    method: 'POST',
 	    headers: {
 	        'Content-Type': 'application/json',
 	    },
-	    body: JSON.stringify( {
+	    body: JSON.stringify( config || {
 	        "email": process.env.email,
 	        "password": process.env.pwd,
 	        "lat": process.env.lat,

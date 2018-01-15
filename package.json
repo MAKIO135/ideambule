@@ -1,16 +1,29 @@
 {
-  "name": "nodeprint",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.16.2",
-    "node-fetch": "^1.7.3",
-    "socket.io": "^2.0.4"
-  }
+    "name": "nodeprint",
+    "version": "1.0.0",
+    "description": "",
+    "engines": {
+        "node": "8.9.4"
+    },
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.16.2",
+        "node-fetch": "^1.7.3",
+        "socket.io": "^2.0.4"
+    },
+    "devDependencies": {
+        "babelify": "^7.3.0",
+        "browserify": "^14.4.0",
+        "envify": "^4.1.0",
+        "gulp": "^3.9.1",
+        "gulp-develop-server": "^0.5.2",
+        "gulp-livereload": "^3.8.1",
+        "vinyl-buffer": "^1.0.0",
+        "vinyl-source-stream": "^1.1.0"
+    }
 }
