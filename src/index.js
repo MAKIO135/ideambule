@@ -8,6 +8,7 @@ const config = require( './config' ),
 let authentication_token_1dlab = null,
 	uuid_1dlab = null;
 
+// 1DLab authentication
 let baseUrl_1dlab = 'https://api.divercities.eu/';
 fetch( baseUrl_1dlab + 'v2/session', {
 	    method: 'POST',
@@ -32,22 +33,6 @@ fetch( baseUrl_1dlab + 'v2/session', {
 	} );
 
 
-// fetch( baseUrl + 'v2/capsules/57?lat=45.7515&long=4.9025', {
-//     method: 'GET', // or 'PUT'
-//     headers: {
-//         'Accept': 'application/json',
-//         'X-Auth-Token': 'gCbNNFkJ8zyHkPEkQfHH',
-//         'X-User-Uuid': 'c0e59bf9-30cd-42c5-a1d8-f03b4f0e4a13'
-//     }
-// } )
-// .then(res => res.json())
-// .catch(error => console.error('Error:', error))
-// .then( response2 => console.log('Success:', response2));
-
-// session au démarrage du serveur
-//+ surveiller on error pour redemander des tokens/uuids
-
-
 // Server
 server.listen( process.env.PORT || 80 );
 
@@ -59,4 +44,22 @@ app.get( '/', ( req, res ) => {
 // Sockets.io communication
 io.on( 'connection' , socket => {
     socket.emit( 'connected', { authentication_token_1dlab, uuid_1dlab } );
+
+	socket.on( 'located', location => {
+		console.log( location );
+		fetch( baseUrl_1dlab + `v2/capsules?lat=${ location.lat }&long=${ location.long }&per_page=30`, {
+		    method: 'GET',
+		    headers: {
+		        'Accept': 'application/json',
+		        'X-Auth-Token': authentication_token_1dlab,
+		        'X-User-Uuid': uuid_1dlab
+		    }
+		} )
+		.then( res => res.json() )
+		.catch( error => console.error( 'Error:', error ) ) // check 401
+		.then( response =>{
+			console.log( 'Success:', response );
+			socket.emit( 'content', response );
+		} );
+	} );
 } );
