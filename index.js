@@ -26,6 +26,8 @@ fetch( baseUrl_1dlab + 'v2/session', {
 		console.log( 'Success:', response );
 		authentication_token_1dlab = response.authentication_token;
 		uuid_1dlab = response.uuid;
+
+		console.log( { authentication_token_1dlab, uuid_1dlab } );
 	} );
 
 
