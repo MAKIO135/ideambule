@@ -34,5 +34,5 @@ addEventListener( 'load', e => {
 
 		navigator.geolocation.getCurrentPosition( success, error, options );
 	};
-	// getGeoloc();
+	getGeoloc();
 } );
