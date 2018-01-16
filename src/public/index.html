@@ -9,8 +9,7 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="msapplication-starturl" content="./">
-        <meta name="description"
-              content="Progressive Web Application for serial communication with Bluetooth Low Energy (Smart) devices">
+        <meta name="description" content="Idéambule, transformez vos temps d'attente en temps de découverte">
         <link href="manifest.json" rel="manifest">
         <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
@@ -24,13 +23,17 @@
     </head>
     <body>
         <div class="background">
-            <div class="row">test</div>
-            <div class="row">test</div>
-            <div class="row">test</div>
+            <div class="row m5"></div>
+            <div class="row m15"></div>
+            <div class="row p15"></div>
         </div>
 
+        <div id="over"></div>
+
         <script src="/socket.io/socket.io.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js" charset="utf-8"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/addons/p5.dom.min.js"></script>
 		<script src="js/main.js"></script>
     </body>
 </html>

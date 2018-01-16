@@ -1,6 +1,4 @@
-
-
-addEventListener( 'load', e => {
+const connectSocket = () => {
 	const socket = io();
 
 	socket.on( 'connected', data => {
@@ -35,4 +33,31 @@ addEventListener( 'load', e => {
 		navigator.geolocation.getCurrentPosition( success, error, options );
 	};
 	getGeoloc();
-} );
+};
+
+const populate = () => {
+
+};
+
+let data;
+
+function preload(){
+	data = loadJSON( 'data/data.json' );
+}
+
+function setup(){
+	let canvas = createCanvas( windowWidth, windowHeight );
+	canvas.parent( 'over' );
+
+	connectSocket();
+	poputlate();
+}
+
+function windowResized(){
+	resizeCanvas( windowWidth, windowHeight );
+}
+
+function draw(){
+	clear();
+	ellipse( mouseX, mouseY, 50 );
+}

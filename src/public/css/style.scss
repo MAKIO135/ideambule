@@ -9,15 +9,6 @@ body{
     width: 100vw;
     height: 300vh;
     overflow-x: hidden;
-    // overflow: hidden;
-}
-
-.background{
-    position: absolute;
-    width: 100vw;
-    top: 0;
-    left: 0;
-
     background: linear-gradient(to bottom, #f9baa2 0%,#e7dec4 30%,#03a3b4 70%,#3a2f64 100%);
 }
 
@@ -25,10 +16,8 @@ body{
     height: 100vh;
 }
 
-.over{
+#over{
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 50vw;
-    height: 50vh;
+    top:0;
+    z-index: 999;
 }
