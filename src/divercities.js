@@ -1,5 +1,6 @@
-const config = require( './config' ),
-      fetch = require( 'node-fetch' );
+const fetch = require( 'node-fetch' );
+let config = null;
+if( ! process.env.heroku ) config = require( './config' );
 
 const baseUrl_1dlab = 'https://api.divercities.eu/';
 

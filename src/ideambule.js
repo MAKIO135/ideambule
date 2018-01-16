@@ -1,5 +1,4 @@
-const config = require( './config' ),
-      Divercities = require( './divercities' ),
+const Divercities = require( './divercities' ),
       fetch = require( 'node-fetch' );
 
 module.exports = {
