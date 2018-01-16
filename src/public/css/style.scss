@@ -16,8 +16,12 @@ body{
     height: 100vh;
 }
 
-#over{
+#card{
     position: fixed;
-    top:0;
+    top: 0;
+    left: -50vh;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3a2f64;
     z-index: 999;
 }

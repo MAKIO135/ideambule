@@ -1,11 +1,11 @@
-const card = {
-	lastTouch: Date.now(),
-	display: false,
-	x: -1,
-	y: -1,
-	w: 0,
-	h: 0
-};
+// const card = {
+// 	lastTouch: 0,
+// 	display: false,
+// 	x: -1,
+// 	y: -1,
+// 	w: 0,
+// 	h: 0
+// };
 
 const connectSocket = () => {
 	const socket = io();
@@ -48,72 +48,76 @@ const populate = ( data ) => {
 
 };
 
-function preload(){
-	let data = loadJSON( 'data/data.json' );
-	console.log( data );
-	populate( data );
-}
+// function preload(){
+// 	let data = loadJSON( 'data/data.json' );
+// 	console.log( data );
+// 	populate( data );
+// }
+//
+// function setup(){
+// 	let canvas = createCanvas( windowWidth, windowHeight );
+// 	canvas.parent( 'over' );
+//
+// 	setCardPos( width, 0, width, height );
+//
+// 	connectSocket();
+// }
 
-function setup(){
-	let canvas = createCanvas( windowWidth, windowHeight );
-	canvas.parent( 'over' );
+// function windowResized(){
+// 	resizeCanvas( windowWidth, windowHeight );
+// }
 
-	setCardPos( width, 0, width, height );
+// function draw(){
+// 	clear();
+//
+// 	// card
+// 	if( card.display ){
+// 		push();
+// 		translate( card.x, card.y );
+//
+// 		noStroke();
+// 		fill( '#3a2f64' );
+// 		rect( 0, 0, card.w, card.h );
+// 		pop();
+// 	}
+//
+// 	// timer
+// 	push();
+// 	stroke( 255 );
+// 	noFill();
+// 	ellipse( 50, height/2, 50 );
+// 	pop();
+// }
 
-	connectSocket();
-}
+// function mousePressed(){
+// 	toggleCard();
+// }
 
-function windowResized(){
-	resizeCanvas( windowWidth, windowHeight );
-}
+// function setCardPos( x, y, w, h ){
+// 	card.x = x;
+// 	card.y = y;
+// 	card.w = w;
+// 	card.h = h;
+// }
 
-function draw(){
-	clear();
-
-	// card
-	if( card.display ){
-		push();
-		translate( card.x, card.y );
-
-		noStroke();
-		fill( '#3a2f64' );
-		rect( 0, 0, card.w, card.h );
-		pop();
-	}
-
-	// timer
-	push();
-	stroke( 255 );
-	noFill();
-	ellipse( 50, height/2, 50 );
-	pop();
-}
-
-function mousePressed(){
-	toggleCard();
-}
-
-function setCardPos( x, y, w, h ){
-	card.x = x;
-	card.y = y;
-	card.w = w;
-	card.h = h;
-}
-
-function toggleCard(){
-	let ts = Date.now();
-
-	if( ts - card.lastTouch > 1000 ){
-		card.display = !card.display;
-		if( !card.display ){
-			TweenMax.to( card, 0.3, {
-				x: 0,
-			} );
-		}
-		else{
-			TweenMax.to( card, 0.3, {
-				x: width
-			} );
-		}
-	}
-}
+// function toggleCard(){
+// 	let ts = millis();
+// 	console.log( ts - card.lastTouch > 1000 );
+//
+// 	if( ts - card.lastTouch > 1000 ){
+// 		card.lastTouch = ts;
+//
+// 		if( !card.display ){
+// 			card.display = true;
+// 			TweenMax.to( card, 0.3, {
+// 				x: 0,
+// 			} );
+// 		}
+// 		else{
+// 			TweenMax.to( card, 0.3, {
+// 				x: width,
+// 				onComplete: () => card.display = false
+// 			} );
+// 		}
+// 	}
+// }
