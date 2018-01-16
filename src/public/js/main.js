@@ -1,4 +1,5 @@
 const card = {
+	lastTouch: Date.now(),
 	display: false,
 	x: -1,
 	y: -1,
@@ -57,6 +58,8 @@ function setup(){
 	let canvas = createCanvas( windowWidth, windowHeight );
 	canvas.parent( 'over' );
 
+	setCardPos( width, 0, width, height );
+
 	connectSocket();
 }
 
@@ -68,13 +71,15 @@ function draw(){
 	clear();
 
 	// card
-	push();
-	translate( card.x, card.y );
+	if( card.display ){
+		push();
+		translate( card.x, card.y );
 
-	noStroke();
-	fill( '#3a2f64' );
-	rect( 0, 0, card.w, card.h );
-	pop();
+		noStroke();
+		fill( '#3a2f64' );
+		rect( 0, 0, card.w, card.h );
+		pop();
+	}
 
 	// timer
 	push();
@@ -84,35 +89,31 @@ function draw(){
 	pop();
 }
 
-function touchEnded(){
-	if( !card.display ){
-		displayCard();
-		TweenMax.fromTo( card, 0.3, {
-			x: width,
-			y: 0,
-			w: width,
-			h: height,
-		}, {
-			x: 0,
-		} );
-	}
-	else{
-		hideCard();
-		TweenMax.fromTo( card, 0.3, {
-			x: 0,
-			y: 0,
-			w: width,
-			h: height,
-		}, {
-			x: width
-		} );
-	}
+function mousePressed(){
+	toggleCard();
 }
 
-function displayCard(){
-	card.display = true;
+function setCardPos( x, y, w, h ){
+	card.x = x;
+	card.y = y;
+	card.w = w;
+	card.h = h;
 }
 
-function hideCard(){
-	card.display = false;
+function toggleCard(){
+	let ts = Date.now();
+
+	if( ts - card.lastTouch > 1000 ){
+		card.display = !card.display;
+		if( !card.display ){
+			TweenMax.to( card, 0.3, {
+				x: 0,
+			} );
+		}
+		else{
+			TweenMax.to( card, 0.3, {
+				x: width
+			} );
+		}
+	}
 }
