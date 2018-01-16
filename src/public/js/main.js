@@ -1,3 +1,11 @@
+const card = {
+	display: false,
+	x: -1,
+	y: -1,
+	w: 0,
+	h: 0
+};
+
 const connectSocket = () => {
 	const socket = io();
 
@@ -35,14 +43,14 @@ const connectSocket = () => {
 	getGeoloc();
 };
 
-const populate = () => {
+const populate = ( data ) => {
 
 };
 
-let data;
-
 function preload(){
-	data = loadJSON( 'data/data.json' );
+	let data = loadJSON( 'data/data.json' );
+	console.log( data );
+	populate( data );
 }
 
 function setup(){
@@ -50,7 +58,6 @@ function setup(){
 	canvas.parent( 'over' );
 
 	connectSocket();
-	poputlate();
 }
 
 function windowResized(){
@@ -59,5 +66,49 @@ function windowResized(){
 
 function draw(){
 	clear();
-	ellipse( mouseX, mouseY, 50 );
+
+	// card
+	push();
+	translate( card.x, card.y );
+
+	noStroke();
+	fill( '#3a2f64' );
+	rect( 0, 0, card.w, card.h );
+	pop();
+
+	// timer
+	push();
+	stroke( 255 );
+	noFill();
+	ellipse( 50, height/2, 50 );
+	pop();
+}
+
+function mousePressed(){
+	if( !card.display ){
+		TweenMax.fromTo( card, 0.3, {
+			x: width,
+			y: 0,
+			w: width,
+			h: height,
+		}, {
+			x: 0,
+			onComplete: toggleCard
+		} );
+	}
+	else{
+		TweenMax.fromTo( card, 0.3, {
+			x: 0,
+			y: 0,
+			w: width,
+			h: height,
+		}, {
+			x: width,
+			onComplete: toggleCard
+		} );
+	}
+}
+
+function toggleCard(){
+	card.display = !card.display;
 }

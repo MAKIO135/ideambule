@@ -1,5 +1,5 @@
 {
-    "items": [
+    "items": {
         "md5": [
             {
                 "name": "name",
@@ -12,14 +12,8 @@
                 "type": "place",
                 "cover": "name_cover.png",
                 "view": "name.png"
-            },
-        ],
+            }
+        ]
 
-    ]
+    }
 }
-
-/*
-"type": "text",
-"type": "audio",
-"type": "video",
-*/
