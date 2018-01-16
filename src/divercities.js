@@ -4,9 +4,9 @@ if( ! process.env.heroku ) config = require( './config' );
 
 const baseUrl_1dlab = 'https://api.divercities.eu/';
 
-module.exports = {
+Divericities = {
   authentication_token: null,
-  uuid_1dlab: null,
+  uuid: null,
 
   createSession: function() {
     return fetch( baseUrl_1dlab + 'v2/session', {
@@ -25,24 +25,40 @@ module.exports = {
       .catch( error => console.error( 'Error:', error ) )
       .then( response => {
         console.log( 'Success:', response );
-        authentication_token_1dlab = response.authentication_token;
-        uuid_1dlab = response.uuid;
+        this.authentication_token = response.authentication_token;
+        this.uuid = response.uuid;
 
-        console.log( { authentication_token_1dlab, uuid_1dlab } );
-        return { authentication_token_1dlab, uuid_1dlab };
+        console.log( { authentication_token: this.authentication_token, uuid: this.uuid } );
+        return { authentication_token: this.authentication_token, uuid: this.uuid };
       } );
   },
 
   getCapsules: function(location) {
-    return fetch( baseUrl_1dlab + `v2/capsules?lat=${ location.lat }&long=${ location.long }&per_page=30`, {
+    let params = {lat: location.lat, long: location.long, per_page: 30};
+    return this._requestApi('v2/capsules', params)
+      .then( res => {return res.json()} )
+      .catch( error => console.error( 'Error:', error ) ) // check 401
+  },
+
+  getCapsule: function(id, location) {
+    let params = {lat: location.lat, long: location.long};
+    return this._requestApi(`v2/capsules/${id}`, params)
+      .then( res => {return res.json()} )
+      .catch( error => console.error( 'Error:', error ) ) // check 401
+  },
+
+  _requestApi: function(path, params={}) {
+    let queryString = Object.entries(params).map((k,i) => `${k[0]}=${k[1]}`);
+    return fetch( baseUrl_1dlab + `${ path }?${ queryString.join('&') }`, {
           method: 'GET',
           headers: {
               'Accept': 'application/json',
-              'X-Auth-Token': authentication_token_1dlab,
-              'X-User-Uuid': uuid_1dlab
+              'X-Auth-Token': this.authentication_token,
+              'X-User-Uuid': this.uuid
           }
       } )
-      .then( res => {return res.json()} )
-      .catch( error => console.error( 'Error:', error ) ) // check 401
   }
 };
+
+
+module.exports = Divericities;
