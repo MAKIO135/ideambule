@@ -1,9 +1,11 @@
-const config = require( './config' ),
-	fetch = require( 'node-fetch' ),
+const fetch = require( 'node-fetch' ),
 	express = require( 'express' ),
 	app = express(),
 	server = require( 'http' ).Server( app ),
 	io = require( 'socket.io' ).listen( server );
+
+let config = null;
+if( ! process.env.heroku ) config = require( './config' );
 
 let authentication_token_1dlab = null,
 	uuid_1dlab = null;
