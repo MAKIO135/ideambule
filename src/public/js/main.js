@@ -84,8 +84,9 @@ function draw(){
 	pop();
 }
 
-function mousePressed(){
+function touchEnded(){
 	if( !card.display ){
+		displayCard();
 		TweenMax.fromTo( card, 0.3, {
 			x: width,
 			y: 0,
@@ -93,22 +94,25 @@ function mousePressed(){
 			h: height,
 		}, {
 			x: 0,
-			onComplete: toggleCard
 		} );
 	}
 	else{
+		hideCard();
 		TweenMax.fromTo( card, 0.3, {
 			x: 0,
 			y: 0,
 			w: width,
 			h: height,
 		}, {
-			x: width,
-			onComplete: toggleCard
+			x: width
 		} );
 	}
 }
 
-function toggleCard(){
-	card.display = !card.display;
+function displayCard(){
+	card.display = true;
+}
+
+function hideCard(){
+	card.display = false;
 }
