@@ -44,6 +44,7 @@ const explodeCapsule = (capsule, init) => {
   // }, {});
   // console.log('categories', categories);
   timeCategories = items.reduce(function(acc, v) {
+    v.resource.capsuleId = capsule.id;
     timeCategory = getTimeCategory(computeDuration(v));
     if (!acc[timeCategory]) {
       acc[timeCategory] = [];
