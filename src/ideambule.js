@@ -12,7 +12,7 @@ const getContentFromLocation = (location) => {
               return capsule.resource_types.length > 3;
             });
             const rand = Math.floor(Math.random() * filteredCapsules.length);
-            // console.log( 'Success:', randomCapsule );
+            console.log( 'randomCapsule', randomCapsule );
 
             return Divercities.getCapsule(filteredCapsules[rand].id, location)
                           .then( function(capsule) {

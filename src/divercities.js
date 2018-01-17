@@ -24,7 +24,7 @@ Divericities = {
       .then( res => res.json() )
       .catch( error => console.error( 'Error:', error ) )
       .then( response => {
-        console.log( 'Success:', response );
+        console.log( 'Session created:', response );
         this.authentication_token = response.authentication_token;
         this.uuid = response.uuid;
 
