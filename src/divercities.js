@@ -24,7 +24,7 @@ Divericities = {
       .then( res => res.json() )
       .catch( error => console.error( 'Error:', error ) )
       .then( response => {
-        console.log( 'Success:', response );
+        console.log( 'Session created:', response );
         this.authentication_token = response.authentication_token;
         this.uuid = response.uuid;
 
@@ -33,8 +33,8 @@ Divericities = {
       } );
   },
 
-  getCapsules: function(location) {
-    let params = {lat: location.lat, long: location.long, per_page: 30};
+  getCapsules: function(location, nb=30) {
+    let params = {lat: location.lat, long: location.long, per_page: nb};
     return this._requestApi('v2/capsules', params)
       .then( res => {return res.json()} )
       .catch( error => console.error( 'Error:', error ) ) // check 401

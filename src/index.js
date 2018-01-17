@@ -21,7 +21,7 @@ Divercities.createSession()
 	.then(() => {
 		// Sockets.io communication
 		io.on( 'connection' , socket => {
-		  socket.emit( 'connected', { authentication_token: Divercities.authentication_token, uuid: Divercities.uuid } );
+		  socket.emit( 'connected', 'Got token' );
 
 			socket.on( 'located', location => {
 				console.log('located', location);
