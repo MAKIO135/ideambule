@@ -1,4 +1,6 @@
 addEventListener( 'load', e => {
+	let socket;
+
 	const getGeoloc = () => {
 		let options = {
 			enableHighAccuracy: true,
@@ -15,19 +17,25 @@ addEventListener( 'load', e => {
 			console.log( `More or less ${ coords.accuracy } meters.` );
 			socket.emit( 'located', { lat: coords.latitude, long: coords.longitude } );
 		}
+
+		function error( err ){
+			console.warn( `ERROR(${ err.code }): ${ err.message }` );
+		};
+
+		navigator.geolocation.getCurrentPosition( success, error, options );
 	};
 
 	const connectSocket = () => {
-		const socket = io();
+		socket = io();
 
 		socket.on( 'connected', data => {
 			console.log( data );
+			getGeoloc();
 		} );
 
 		socket.on( 'content', data => {
 			console.log( data );
 		} );
-		getGeoloc();
 	};
 	connectSocket();
 } );

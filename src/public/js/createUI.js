@@ -59,12 +59,12 @@ addEventListener( 'load', e => {
     const card = document.querySelector( '#card' );
     card.style.width = window.innerWidth + 'px';
 
-    document.querySelectorAll( '.verticalAlign' ).forEach( e => {
-        e.style.top = window
+    document.querySelectorAll( '.verticalAlign' ).forEach( el => {
+        el.style.top = window.innerHeight / 2 - el.style.height / 2 + 'px';
     } );
 
-    document.querySelectorAll( '.horizontalAlign' ).forEach( e => {
-        e.style.top = window
+    document.querySelectorAll( '.horizontalAlign' ).forEach( el => {
+        el.style.left = window.innerWidth / 2 - el.style.width / 2 + 'px';
     } );
 
     const timerScreen = document.querySelector( '#timerScreen' );
@@ -73,14 +73,10 @@ addEventListener( 'load', e => {
     timerScreen.style.top = -window.innerHeight + 'px';
 
     const timerImg = document.querySelector( '#timerImg' );
-    timerImg.style.top = window.innerHeight / 2 - timerImg.height / 2 + 'px';
     timerImg.addEventListener( 'click', e => {
-        document.querySelector( '#variable' ).innerHTML = `
-
-        `;
-
+        let currentTop = timerScreen.style.top;
         TweenMax.to( timerScreen, 0.5, {
-            top: 0,
+            top: ( currentTop == 0 ? -window.innerHeight : 0 ) + 'px',
             delay: 0.5,
             ease: Power3.easeInOut,
             onComplete: onAnimationDone
