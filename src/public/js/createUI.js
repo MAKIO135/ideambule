@@ -77,22 +77,35 @@ addEventListener( 'load', e => {
     const timerScreen = document.querySelector( '#timerScreen' );
     timerScreen.style.width = window.innerWidth + 'px';
     timerScreen.style.height = window.innerHeight + 'px';
-    timerScreen.style.top = -window.innerHeight + 'px';
 
     const timerImg = document.querySelector( '#timerImg' );
     timerImg.addEventListener( 'click', e => {
-        let currentTop = timerScreen.style.top;
-        TweenMax.to( timerScreen, 0.5, {
-            top: ( currentTop == 0 ? -window.innerHeight : 0 ) + 'px',
+        console.log( 'click timer' )
+        let currentOpacity = timerScreen.style.opacity;
+        TweenMax.fromTo( timerScreen, 1.0, {
+            zIndex: 3
+        },
+        {
+            opacity: ( currentOpacity == 0 ? 1.0 : 0 ),
             delay: 0.5,
             ease: Power3.easeInOut,
-            onComplete: onAnimationDone
+            onComplete: () => {
+                if( timerScreen.style.opacity == 0 ) timerScreen.style.zIndex = -1;
+                onAnimationDone()
+            }
         } );
     } );
 
 
 
-
+    let currentTimeRow = 0;
+    $( '#arrow_down' ).click( () => {
+        currentTimeRow = Math.max( ++ currentTimeRow, 2 );
+        console.log(currentTimeRow, document.querySelectorAll('.timeRow')[currentTimeRow], $(document.querySelectorAll('.timeRow')[currentTimeRow]));
+        $('html, body').animate({
+            scrollTop: $(document.querySelectorAll('.timeRow')[currentTimeRow]).offset().top
+        }, 2000);
+    } )
 
 
     let tl = new TimelineMax();

@@ -67,21 +67,22 @@
             </div>
         </div>
 
-        <div id="timerScreen" class="hidden">
+        <div id="timerScreen">
             <img src="data/screen_timer.png">
         </div>
 
-        <div id="ui">
+        <div id="ui" class="hidden">
             <img id="arrow_up" class="horizontalAlign" src="data/icon_arrow_up.png">
             <img id="arrow_down" class="horizontalAlign" src="data/icon_arrow_down.png">
-            <img id="timerImg" class="verticalAlign" src="data/icon_sablier_able.png">
         </div>
+
+        <img id="timerImg" class="verticalAlign hidden" src="data/icon_sablier_able.png">
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/plugins/ScrollToPlugin.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/addons/p5.dom.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" charset="utf-8"></script>
 		<script src="js/main.js"></script>
 		<script src="js/createUI.js"></script>
     </body>

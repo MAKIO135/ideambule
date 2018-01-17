@@ -19,7 +19,7 @@ body{
 .timeRow{
     height: 100vh;
     position: relative;
-    
+
     .rowTitle{
         position: absolute;
         top: 226px;
@@ -43,8 +43,8 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    width: 800px;
-    height: 1200px;
+    width: 100vw;
+    height: 100vh;
     background-color: #3a2f64;
     z-index: 2;
 
@@ -61,8 +61,14 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 3;
-    overflow: hidden;
+    z-index: 0;
+    opacity: 0;
+    background: linear-gradient(to bottom, #d7dac3 0%,#84c4bd 50%,#03a3b4 100%);
+
+    img{
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 
 #ui{
@@ -93,8 +99,10 @@ body{
         bottom: 56px;
     }
 
-    #timerImg{
-        z-index: 4;
-        left: 26px;
-    }
+}
+
+#timerImg{
+    position: absolute;
+    z-index: 999;
+    left: 26px;
 }
