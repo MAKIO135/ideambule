@@ -1,17 +1,108 @@
 {
     "items": {
-        "md5": [
+        "m5": [
             {
-                "name": "name",
-                "type": "place",
-                "cover": "name_cover.png",
-                "view": "name.png"
+                "name": "overnight",
+                "type": "audio",
+                "cover": "overnight_cover.png",
+                "view": "overnight.png",
+                "file": ""
             },
             {
-                "name": "name",
-                "type": "place",
-                "cover": "name_cover.png",
-                "view": "name.png"
+                "name": "periscope",
+                "type": "video",
+                "cover": "periscope_cover.png",
+                "view": "periscope.png",
+                "file": ""
+            },
+            {
+                "name": "passregion",
+                "type": "image",
+                "cover": "passregion_cover.png",
+                "view": "passregion.png"
+            },
+            {
+                "name": "hydraviolet",
+                "type": "audio",
+                "cover": "hydraviolet_cover.png",
+                "view": "hydraviolet.png",
+                "file": ""
+            },
+            {
+                "name": "moe",
+                "type": "audio",
+                "cover": "moe_cover.png",
+                "view": "moe.png",
+                "file": ""
+            }
+        ],
+
+        "m15": [
+            {
+                "name": "parcdutoit",
+                "type": "image",
+                "cover": "parcdutoit_cover.png",
+                "view": "parcdutoit.png"
+            },
+            {
+                "name": "pianogare",
+                "type": "image",
+                "cover": "pianogare_cover.png",
+                "view": "pianogare.png"
+            },
+            {
+                "name": "peintreaucinema",
+                "type": "video",
+                "cover": "peintreaucinema_cover.png",
+                "view": "peintreaucinema.png",
+                "file": ""
+            },
+            {
+                "name": "cadavresexquis",
+                "type": "image",
+                "cover": "cadavresexquis_cover.png",
+                "view": "cadavresexquis.png"
+            },
+            {
+                "name": "sauvermusee",
+                "type": "audio",
+                "cover": "sauvermusee_cover.png",
+                "view": "sauvermusee.png",
+                "file": ""
+            }
+        ],
+
+        "p15": [
+            {
+                "name": "brasseriegeorges",
+                "type": "image",
+                "cover": "brasseriegeorges_cover.png",
+                "view": "brasseriegeorges.png"
+            },
+            {
+                "name": "compositions",
+                "type": "image",
+                "cover": "compositions_cover.png",
+                "view": "compositions.png"
+            },
+            {
+                "name": "librairiedescours",
+                "type": "image",
+                "cover": "librairiedescours_cover.png",
+                "view": "librairiedescours.png"
+            },
+            {
+                "name": "entracte",
+                "type": "audio",
+                "cover": "entracte_cover.png",
+                "view": "entracte.png",
+                "file": ""
+            },
+            {
+                "name": "metagram",
+                "type": "image",
+                "cover": "metagram_cover.png",
+                "view": "metagram.png"
             }
         ]
 

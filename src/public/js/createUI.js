@@ -1,59 +1,75 @@
 addEventListener( 'load', e => {
-    const populate = ( data ) => {
+    function onBlockClick( e ){
+        console.log( this.dataset );
 
+        let tl = new TimelineMax();
+        tl.to( card, 0.8, {
+            left: 0,
+            ease: Power3.easeInOut
+        } )
+        .to( card, 0.8, {
+            left: -window.innerWidth,
+            delay: 1.0,
+            ease: Power3.easeInOut
+        } );
+    }
+
+	async function constructInterface(){
+		let json = await fetch( 'data/data.json' )
+			.then( res => res.json() )
+			.catch( err => console.error( err ) )
+			.then( response => response );
+		return json;
 	};
+	constructInterface().then( json => {
+        [ "m5", "m15", "p15" ].forEach( cat => {
+            let catRow = document.querySelector( `#${cat}>.row` );
+            catRow.dataset.activeCard = 0;
+            let hammer = new Hammer( catRow );
+            // hammer.on( 'swipe', e => {
+            //     console.log( e.deltaX );
+            //     if( e.deltaX > 100 ){
+            //         catRow.dataset.activeCard --;
+            //         catRow.dataset.activeCard = Math.max( catRow.dataset.activeCard, 0 );
+            //         TweenMax.to( catRow, 0.5, {
+            //             left: 136 - catRow.dataset.activeCard * 592 + 'px',
+            //             ease: Power3.easeInOut
+            //         } );
+            //     }
+            //     if( e.deltaX < -100 ){
+            //         catRow.dataset.activeCard ++;
+            //         catRow.dataset.activeCard = Math.min( catRow.dataset.activeCard, json.items[ cat ].length - 1 );
+            //         TweenMax.to( catRow, 0.5, {
+            //             left: 136 - catRow.dataset.activeCard * 592 + 'px',
+            //             ease: Power3.easeInOut
+            //         } );
+            //     }
+            // } );
+            hammer.on( 'pan', e => {
+                console.log( e );
+                catRow.style.left = parseInt( catRow.style.left ) + e.deltaX + 'px'
+            } );
 
-	// async function constructInterface(){
-	// 	let items = await fetch( 'data/data.json' )
-	// 		.then( res => res.json() )
-	// 		.catch( err => console.error( err ) )
-	// 		.then( response => response );
-	// 	return items;
-	// };
-	// constructInterface().then( items => console.log( items ) );
+            json.items[ cat ].shuffle().forEach( ( item, i ) => {
+                let block = document.createElement( 'div' );
+                block.classList.add( 'block' );
+                block.style.left = i * 592 + 'px';
+                let img = new Image();
+                if( i == 0 ) img.classList.add( 'active' );
+                for( prop in item ){
+                    img.dataset[ prop ] = item[ prop ];
+                }
+                img.src = `data/covers/${item.cover}`;
+                block.appendChild( img );
+                catRow.appendChild( block );
+                img.addEventListener( 'click', onBlockClick );
+            } );
+        } );
 
-
-	let animationDone = true;
-	const onAnimationStart = () => animationDone = false;
-	const onAnimationDone = () => animationDone = true;
-
-	// let startScroll = true, firstScrollPos = 0;
-	// addEventListener( 'scroll', e => {
-	// 	e.preventDefault();
-	// 	console.log( window.pageYOffset );
-	// 	if( startScroll ){
-	// 		firstScrollPos = window.pageYOffset;
-	// 		startScroll = false;
-	// 	}
-	// 	else{
-	// 		if( firstScrollPos < window.pageYOffset ){
-	// 			if( animationDone ){
-	// 				TweenMax.to( window, 1, {
-	// 					scrollTo: {
-	// 						y: ( ~~( window.pageYOffset / 1200 ) + 1 ) * 1200
-	// 					},
-	// 					onComplete: () => {
-	// 						startScroll = true;
-	// 						onAnimationDone();
-	// 					}
-	// 				} );
-	// 			}
-	// 		}
-	// 		else{
-	// 			if( animationDone ){
-	// 				TweenMax.to( window, 1, {
-	// 					scrollTo: {
-	// 						y: ( ~~( window.pageYOffset / 1200 ) ) * 1200
-	// 					},
-	// 					onComplete: () => {
-	// 						startScroll = true;
-	// 						onAnimationDone();
-	// 					}
-	// 				} );
-	// 			}
-	// 		}
-	// 	}
-	// } );
+        document.querySelectorAll( '.block>img' ).forEach( img => {
+            img.style.top = window.innerHeight / 2 - 529 / 2 + 'px';
+        } );
+    } );
 
 
     const card = document.querySelector( '#card' );
@@ -69,10 +85,6 @@ addEventListener( 'load', e => {
         };
     } );
 
-    document.querySelectorAll( '.block>img' ).forEach( img => {
-        img.style.left = window.innerWidth / 2 - img.width / 2 + 'px';
-        img.style.top = window.innerHeight / 2 - img.width / 2 + 'px';
-    } )
 
     const timerScreen = document.querySelector( '#timerScreen' );
     timerScreen.style.width = window.innerWidth + 'px';
@@ -91,26 +103,31 @@ addEventListener( 'load', e => {
             ease: Power3.easeInOut,
             onComplete: () => {
                 if( timerScreen.style.opacity == 0 ) timerScreen.style.zIndex = -1;
-                onAnimationDone()
             }
         } );
     } );
 
-
-
-    let currentTimeRow = 0;
+    let currentTimeRow = 1;
+    $('html, body').animate({
+        scrollTop: $(document.querySelectorAll('.timeRow')[currentTimeRow]).offset().top
+    }, 1000);
     $( '#arrow_down' ).click( () => {
+        if( currentTimeRow == 0 ) $( '#arrow_up' ).fadeIn();
+        else if( currentTimeRow == 1 ) $( '#arrow_down' ).fadeOut();
+
         currentTimeRow = ++ currentTimeRow;
         currentTimeRow = Math.min( currentTimeRow, 2 );
-        console.log(currentTimeRow, document.querySelectorAll('.timeRow')[currentTimeRow], $(document.querySelectorAll('.timeRow')[currentTimeRow]));
         $('html, body').animate({
             scrollTop: $(document.querySelectorAll('.timeRow')[currentTimeRow]).offset().top
         }, 1000);
     } );
+
     $( '#arrow_up' ).click( () => {
+        if( currentTimeRow == 2 ) $( '#arrow_down' ).fadeIn();
+        else if( currentTimeRow == 1 ) $( '#arrow_up' ).fadeOut();
+
         currentTimeRow = -- currentTimeRow;
         currentTimeRow = Math.max( currentTimeRow, 0 );
-        console.log(currentTimeRow, document.querySelectorAll('.timeRow')[currentTimeRow], $(document.querySelectorAll('.timeRow')[currentTimeRow]));
         $('html, body').animate({
             scrollTop: $(document.querySelectorAll('.timeRow')[currentTimeRow]).offset().top
         }, 1000);
@@ -118,13 +135,12 @@ addEventListener( 'load', e => {
 
 
     let tl = new TimelineMax();
-    tl.to( card, 0.5, {
-        onStart: onAnimationStart,
+    tl.to( card, 0.1, {
         left: -window.innerWidth,
         delay: 1.0,
         ease: Power3.easeInOut
     } )
-    .to( '.hidden', 1.5, {
+    .to( '.hidden', 0.1, {
         opacity: 1,
         delay: 0.3,
         ease: Power2.easeOut
