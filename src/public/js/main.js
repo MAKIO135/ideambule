@@ -1,7 +1,7 @@
 addEventListener( 'load', e => {
 	let socket;
 
-	const getGeoloc = () => {
+	const getGeoloc = callback => {
 		let options = {
 			enableHighAccuracy: true,
 			timeout: 20000,
@@ -15,7 +15,7 @@ addEventListener( 'load', e => {
 			console.log( `Latitude : ${ coords.latitude }` );
 			console.log( `Longitude: ${ coords.longitude }` );
 			console.log( `More or less ${ coords.accuracy } meters.` );
-			socket.emit( 'located', { lat: coords.latitude, long: coords.longitude } );
+			callback( coords );
 		}
 
 		function error( err ){
@@ -30,7 +30,20 @@ addEventListener( 'load', e => {
 
 		socket.on( 'connected', data => {
 			console.log( data );
-			getGeoloc();
+			getGeoloc( coords => {
+				socket.emit( 'located', { lat: coords.latitude, long: coords.longitude } );
+			} );
+
+			// getGeoloc( coords => {
+			// 	socket.emit( 'capsule', {
+			// 		capsuleId: null,
+			// 		itemId: null,
+			// 		location: {
+			// 			lat: coords.latitude,
+			// 			long: coords.longitude
+			// 		}
+			// 	} );
+			// } );
 		} );
 
 		socket.on( 'content', data => {
