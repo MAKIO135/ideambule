@@ -6,22 +6,89 @@
 }
 
 body{
-    width: 100vw;
-    height: 300vh;
+    width: 800px;
+    height: 3600px;
     overflow-x: hidden;
     background: linear-gradient(to bottom, #f9baa2 0%,#e7dec4 30%,#03a3b4 70%,#3a2f64 100%);
 }
 
+.hidden{
+    opacity: 0;
+}
+
 .row{
-    height: 100vh;
+    height: 1200px;
+    position: relative;
+
+    .rowTitle{
+        position: absolute;
+        top: 150px;
+        left: 150px;
+    }
+
+    .block{
+
+    }
 }
 
 #card{
     position: fixed;
     top: 0;
-    left: 0vh;
-    width: 100vw;
-    height: 100vh;
+    left: 0;
+    width: 800px;
+    height: 1200px;
     background-color: #3a2f64;
-    z-index: 999;
+    z-index: 2;
+
+    #fixed{
+        position: relative;
+    }
+
+    #variable{
+        position: relative;
+    }
+}
+
+#timerScreen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    overflow: hidden;
+}
+
+#ui{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    #arrow_prev{
+        z-index: 1;
+        position: absolute;
+        left: 150px;
+    }
+
+    #arrow_next{
+        z-index: 1;
+        position: absolute;
+        right: 150px;
+    }
+
+    #arrow_up{
+        z-index: 1;
+        position: absolute;
+        top: 50px;
+    }
+
+    #arrow_down{
+        z-index: 1;
+        position: absolute;
+        bottom: 50px;
+    }
+
+    #timerImg{
+        position: absolute;
+        z-index: 4;
+        left: 15px;
+    }
 }

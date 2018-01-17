@@ -8,8 +8,8 @@
   "name": "Idéambule, découvrez votre environnement",
   "short_name": "Idéambule",
   "description": "Transformez vos temps d'attente subis en temps de découverte choisis",
-  "theme_color": "#3a2f64",
-  "background_color": "#3a2f64",
+  "theme_color": "#E7DEC4",
+  "background_color": "#E7DEC4",
   "icons": [
     {
       "src": "icons/android-chrome-36x36.png",
