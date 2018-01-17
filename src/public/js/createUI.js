@@ -59,13 +59,20 @@ addEventListener( 'load', e => {
     const card = document.querySelector( '#card' );
     card.style.width = window.innerWidth + 'px';
 
-    document.querySelectorAll( '.verticalAlign' ).forEach( el => {
-        el.style.top = window.innerHeight / 2 - el.style.height / 2 + 'px';
+    document.querySelectorAll( 'img' ).forEach( img => {
+        if( img.classList.contains( 'verticalAlign' ) ){
+            img.style.top = window.innerHeight / 2 - img.height / 2 + 'px';
+        };
+
+        if( img.classList.contains( 'horizontalAlign' ) ){
+            img.style.left = window.innerWidth / 2 - img.width / 2 + 'px';
+        };
     } );
 
-    document.querySelectorAll( '.horizontalAlign' ).forEach( el => {
-        el.style.left = window.innerWidth / 2 - el.style.width / 2 + 'px';
-    } );
+    document.querySelectorAll( '.block>img' ).forEach( img => {
+        img.style.left = window.innerWidth / 2 - img.width / 2 + 'px';
+        img.style.top = window.innerHeight / 2 - img.width / 2 + 'px';
+    } )
 
     const timerScreen = document.querySelector( '#timerScreen' );
     timerScreen.style.width = window.innerWidth + 'px';
