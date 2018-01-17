@@ -100,12 +100,21 @@ addEventListener( 'load', e => {
 
     let currentTimeRow = 0;
     $( '#arrow_down' ).click( () => {
-        currentTimeRow = Math.max( ++ currentTimeRow, 2 );
+        currentTimeRow = ++ currentTimeRow;
+        currentTimeRow = Math.min( currentTimeRow, 2 );
         console.log(currentTimeRow, document.querySelectorAll('.timeRow')[currentTimeRow], $(document.querySelectorAll('.timeRow')[currentTimeRow]));
         $('html, body').animate({
             scrollTop: $(document.querySelectorAll('.timeRow')[currentTimeRow]).offset().top
-        }, 2000);
-    } )
+        }, 1000);
+    } );
+    $( '#arrow_up' ).click( () => {
+        currentTimeRow = -- currentTimeRow;
+        currentTimeRow = Math.max( currentTimeRow, 0 );
+        console.log(currentTimeRow, document.querySelectorAll('.timeRow')[currentTimeRow], $(document.querySelectorAll('.timeRow')[currentTimeRow]));
+        $('html, body').animate({
+            scrollTop: $(document.querySelectorAll('.timeRow')[currentTimeRow]).offset().top
+        }, 1000);
+    } );
 
 
     let tl = new TimelineMax();
