@@ -99,7 +99,7 @@ const computeDuration = (item) => {
       return item.resource.duration.seconds;
       break;
     case 'video_game':
-      return 60*60;
+      return 10*60;
       break;
     case 'poi':
       return 40*60;
