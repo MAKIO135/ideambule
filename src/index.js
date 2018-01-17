@@ -23,6 +23,13 @@ Divercities.createSession()
 		io.on( 'connection' , socket => {
 		  socket.emit( 'connected', 'Got token' );
 
+			socket.on( 'capsule', (itemLocator, location) => {
+				Divercities.getCapsule(itemLocator.capsuleId, location).then((capsule) => {
+					item = capsule.capsule_items.filter((item) => { return item.resource.id==itemLocator.itemId; })[0];
+					socket.emit('item', item);
+				});
+			} );
+
 			socket.on( 'located', location => {
 				console.log('located', location);
 				Ideambule
