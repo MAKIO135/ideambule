@@ -6,7 +6,8 @@ const Printer = require( 'thermalprinter' );
 let path = __dirname + '/images/plan.png';
 
 serialPort.on( 'open', () => {
-	let printer = new Printer( serialPort );
+	let opts = { maxPrintingDots: 10, heatingTime: 100, heatingInterval: 3, commandDelay: 3 };
+	let printer = new Printer( serialPort, opts );
 	printer.on( 'ready', () => {
 		printer
 			// .indent( 10 )
