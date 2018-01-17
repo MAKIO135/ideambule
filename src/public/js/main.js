@@ -34,19 +34,23 @@ addEventListener( 'load', e => {
 				socket.emit( 'located', { lat: coords.latitude, long: coords.longitude } );
 			} );
 
-			// getGeoloc( coords => {
-			// 	socket.emit( 'capsule', {
-			// 		capsuleId: null,
-			// 		itemId: null,
-			// 		location: {
-			// 			lat: coords.latitude,
-			// 			long: coords.longitude
-			// 		}
-			// 	} );
-			// } );
+			getGeoloc( coords => {
+				socket.emit( 'capsule', {
+					capsuleId: 419, //ressource.capsuleId
+					itemId: 12645, //ressource.id
+					location: {
+						lat: coords.latitude,
+						long: coords.longitude
+					}
+				} );
+			} );
 		} );
 
 		socket.on( 'content', data => {
+			console.log( data );
+		} );
+
+		socket.on( 'item', data => {
 			console.log( data );
 		} );
 	};

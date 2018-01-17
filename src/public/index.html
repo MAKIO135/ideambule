@@ -25,9 +25,9 @@
     <body>
         <svg style="display:none;" height="0" xmlns="http://www.w3.org/2000/svg">
             <filter id="drop-shadow">
-                <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
-                <feOffset dx="12" dy="12" result="offsetblur"/>
-                <feFlood flood-color="rgba(0,0,0,0.5)"/>
+                <feGaussianBlur in="SourceAlpha" stdDeviation="12"/>
+                <feOffset dx="0" dy="0" result="offsetblur"/>
+                <feFlood flood-color="rgba(255,255,255,0.8)"/>
                 <feComposite in2="offsetblur" operator="in"/>
                 <feMerge>
                     <feMergeNode/>
@@ -55,8 +55,9 @@
             <div id="variable">
 
             </div>
-            <div id="fixed">
 
+            <div id="fixed">
+                <img src="data/icon_arrow_prev.png" alt="">
             </div>
         </div>
 
@@ -69,7 +70,7 @@
             <img id="arrow_down" class="horizontalAlign" src="data/icon_arrow_down.png">
         </div>
 
-        <img id="timerImg" class="verticalAlign hidden" src="data/icon_sablier_able.png">
+        <img id="timerImg" class="verticalAlign hidden shadowed" src="data/icon_sablier_able.png">
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>

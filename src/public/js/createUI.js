@@ -1,6 +1,11 @@
 addEventListener( 'load', e => {
     function onBlockClick( e ){
         console.log( this.dataset );
+        let type = this.dataset.type;
+        console.log( type )
+        if( type == 'image' ){
+            document.querySelector( '#variable' ).innerHTML = `<img src='data/views/${this.dataset.view}'>`
+        }
 
         let tl = new TimelineMax();
         tl.to( card, 0.8, {
@@ -26,28 +31,53 @@ addEventListener( 'load', e => {
             let catRow = document.querySelector( `#${cat}>.row` );
             catRow.dataset.activeCard = 0;
             let hammer = new Hammer( catRow );
-            // hammer.on( 'swipe', e => {
-            //     console.log( e.deltaX );
-            //     if( e.deltaX > 100 ){
-            //         catRow.dataset.activeCard --;
-            //         catRow.dataset.activeCard = Math.max( catRow.dataset.activeCard, 0 );
-            //         TweenMax.to( catRow, 0.5, {
-            //             left: 136 - catRow.dataset.activeCard * 592 + 'px',
-            //             ease: Power3.easeInOut
-            //         } );
-            //     }
-            //     if( e.deltaX < -100 ){
-            //         catRow.dataset.activeCard ++;
-            //         catRow.dataset.activeCard = Math.min( catRow.dataset.activeCard, json.items[ cat ].length - 1 );
-            //         TweenMax.to( catRow, 0.5, {
-            //             left: 136 - catRow.dataset.activeCard * 592 + 'px',
-            //             ease: Power3.easeInOut
-            //         } );
-            //     }
-            // } );
-            hammer.on( 'pan', e => {
-                console.log( e );
-                catRow.style.left = parseInt( catRow.style.left ) + e.deltaX + 'px'
+
+            let panDirection = null;
+            hammer.on( 'panleft', e => {
+                panDirection = 'left';
+                catRow.style.left = 136 - catRow.dataset.activeCard * 592 + e.deltaX + 'px';
+            } );
+            hammer.on( 'panright', e => {
+                panDirection = 'right';
+                catRow.style.left = 136 - catRow.dataset.activeCard * 592 + e.deltaX + 'px';
+            } );
+            hammer.on( 'panup', e => {
+                panDirection = 'up';
+                document.body.scrollTop += e.deltaY;
+            } );
+            hammer.on( 'pandown', e => {
+                panDirection = 'down';
+                document.body.scrollTop += e.deltaY;
+            } );
+
+            hammer.on( 'panend', e => {
+                direction = null;
+                if( e.distance > 150 ){
+                    if( panDirection == 'left' ){
+                        catRow.dataset.activeCard ++;
+                        catRow.dataset.activeCard = Math.min( catRow.dataset.activeCard, json.items[ cat ].length - 1 );
+
+                        TweenMax.to( catRow, 0.3, {
+                            left: 136 - catRow.dataset.activeCard * 592 + 'px',
+                            ease: Power3.easeOut
+                        } );
+                    }
+                    else if( panDirection == 'right' ){
+                        catRow.dataset.activeCard --;
+                        catRow.dataset.activeCard = Math.max( catRow.dataset.activeCard, 0 );
+                        TweenMax.to( catRow, 0.3, {
+                            left: 136 - catRow.dataset.activeCard * 592 + 'px',
+                            ease: Power3.easeOut
+                        } );
+                    }
+
+                }
+                else{
+                    TweenMax.to( catRow, 0.3, {
+                        left: 136 - catRow.dataset.activeCard * 592 + 'px',
+                        ease: Power3.easeOut
+                    } );
+                }
             } );
 
             json.items[ cat ].shuffle().forEach( ( item, i ) => {

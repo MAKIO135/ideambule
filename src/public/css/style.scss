@@ -5,6 +5,10 @@
     padding: 0;
 }
 
+.shadowed{
+    -webkit-filter: drop-shadow(0px 0px 5px rgba(255,255,255,1.0));
+}
+
 body{
     width: 100vw;
     height: 300vh;
@@ -53,10 +57,18 @@ body{
 
     #fixed{
         position: relative;
+
+        img{
+            position: absolute;
+            top: 64px;
+            left: 50px;
+        }
     }
 
     #variable{
         position: relative;
+        top: 0;
+        left: 0;
     }
 }
 
@@ -72,10 +84,6 @@ body{
     img{
         max-width: 100%;
         max-height: 100%;
-    }
-
-    canvas{
-
     }
 }
 
