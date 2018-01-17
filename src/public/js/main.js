@@ -4,7 +4,7 @@ addEventListener( 'load', e => {
 	const getGeoloc = () => {
 		let options = {
 			enableHighAccuracy: true,
-			timeout: 15000,
+			timeout: 20000,
 			maximumAge: 0
 		};
 
