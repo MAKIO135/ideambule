@@ -13,7 +13,7 @@ const getContentFromLocation = (location) => {
             const filteredCapsules = response.capsules.filter((capsule) => {
               return capsule.resource_types.length > 3;
             });
-            console.log('capsules', response.capsules.length, filteredCapsules.length);
+            // console.log('capsules', response.capsules.length, filteredCapsules.length);
             const rand = generateDifferentRandom(0, filteredCapsules.length, -1);
             const rand2 = generateDifferentRandom(0, filteredCapsules.length, rand);
 
@@ -63,7 +63,8 @@ const explodeCapsule = (capsule, init) => {
       resource_type: 'capsule',
       provider: 'Divercities',
       author: capsule.editorialist.name,
-      title: capsule.title
+      title: capsule.title,
+      cover: capsule.cover
     }
   });
   console.log('categories', timeCategories);
