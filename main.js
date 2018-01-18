@@ -1,7 +1,9 @@
 const SerialPort = require( 'serialport' );
-// const printerPort = new SerialPort( 'COM8', { baudRate : 19200 } ); // windows
-const arduinoPort = new SerialPort( '/dev/ttyACM0', { baudRate : 9600 } ); // raspberry pi
-const printerPort = new SerialPort( '/dev/ttyS0', { baudRate : 19200 } ); // raspberry pi
+const arduinoPort = new SerialPort( '/dev/ttyACM0', {
+	baudRate : 9600,
+	parser: SerialPort.parsers.readline( "\n" )
+} );
+const printerPort = new SerialPort( '/dev/ttyS0', { baudRate : 19200 } );
 const Printer = require( 'thermalprinter' );
 
 let baseImagesPath = __dirname + '/images/';
@@ -22,12 +24,14 @@ printerPort.on( 'open', () => {
 
 	printer.on( 'ready', () => {
 		printerReady = true;
-		print( 1 );
+		// print( 1 );
 	} );
 } );
 
-arduinoPort.on( 'open' () => {
-	
+arduinoPort.on( 'open', () => {
+	arduinoPort.on('data', function (data) {
+		console.log('Data:', data);
+	});
 } );
 
 function print( n ){
