@@ -119,7 +119,6 @@ addEventListener( 'load', e => {
             card.type = this.dataset.type;
             if( card.type == 'audio' ){
                 $('#audioUI').show();
-                cardAudioEl.src= '';
             }
             else{
                 $('#audioUI').hide();
@@ -137,7 +136,6 @@ addEventListener( 'load', e => {
     card.style.height = window.innerHeight + 'px';
     let cardSwipe = new Hammer( card );
     cardSwipe.on( 'swipeleft', closeCardHandler );
-    let cardAudioEl = card.querySelector( 'audio' );
 
     document.querySelectorAll( 'img' ).forEach( img => {
         if( img.classList.contains( 'verticalAlign' ) ){
@@ -244,9 +242,9 @@ addEventListener( 'load', e => {
 
     ( function onOpenApp(){
         let tl = new TimelineMax();
-        tl.to( card, 0.1, {
+        tl.to( card, 0.8, {
             left: -window.innerWidth,
-            delay: 1.0,
+            delay: 3.0,
             ease: Power3.easeInOut,
             onComplete: () => card.style.backgroundColor = 'rgba(0,0,0,0)'
         } )

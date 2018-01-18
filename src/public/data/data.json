@@ -5,15 +5,13 @@
                 "name": "overnight",
                 "type": "audio",
                 "cover": "overnight_cover.png",
-                "view": "overnight.png",
-                "file": ""
+                "view": "overnight.png"
             },
             {
                 "name": "periscope",
                 "type": "video",
                 "cover": "periscope_cover.png",
-                "view": "periscope.png",
-                "file": ""
+                "view": "periscope.png"
             },
             {
                 "name": "passregion",
@@ -25,15 +23,13 @@
                 "name": "hydraviolet",
                 "type": "audio",
                 "cover": "hydraviolet_cover.png",
-                "view": "hydraviolet.png",
-                "file": ""
+                "view": "hydraviolet.png"
             },
             {
                 "name": "moe",
                 "type": "audio",
                 "cover": "moe_cover.png",
-                "view": "moe.png",
-                "file": ""
+                "view": "moe.png"
             }
         ],
 
@@ -54,8 +50,7 @@
                 "name": "peintreaucinema",
                 "type": "video",
                 "cover": "peintreaucinema_cover.png",
-                "view": "peintreaucinema.png",
-                "file": ""
+                "view": "peintreaucinema.png"
             },
             {
                 "name": "cadavresexquis",
@@ -67,8 +62,7 @@
                 "name": "sauvermusee",
                 "type": "audio",
                 "cover": "sauvermusee_cover.png",
-                "view": "sauvermusee.png",
-                "file": ""
+                "view": "sauvermusee.png"
             }
         ],
 
@@ -95,8 +89,7 @@
                 "name": "entracte",
                 "type": "audio",
                 "cover": "entracte_cover.png",
-                "view": "entracte.png",
-                "file": ""
+                "view": "entracte.png"
             },
             {
                 "name": "metagram",
