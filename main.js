@@ -1,8 +1,8 @@
 const SerialPort = require( 'serialport' );
-const arduinoPort = new SerialPort( '/dev/ttyACM0', {
-	baudRate : 9600,
-	parser: SerialPort.parsers.readline( "\n" )
-} );
+// const arduinoPort = new SerialPort( '/dev/ttyACM0', {
+// 	baudRate : 9600,
+// 	parser: SerialPort.parsers.readline( "\n" )
+// } );
 const printerPort = new SerialPort( '/dev/ttyS0', { baudRate : 19200 } );
 const Printer = require( 'thermalprinter' );
 
@@ -24,15 +24,15 @@ printerPort.on( 'open', () => {
 
 	printer.on( 'ready', () => {
 		printerReady = true;
-		// print( 1 );
+		print( 1 );
 	} );
 } );
 
-arduinoPort.on( 'open', () => {
-	arduinoPort.on('data', data => {
-		console.log( 'Data:', data );
-	} );
-} );
+// arduinoPort.on( 'open', () => {
+// 	arduinoPort.on('data', data => {
+// 		console.log( 'Data:', data );
+// 	} );
+// } );
 
 function print( n ){
 	if( printerReady ){
@@ -46,9 +46,9 @@ function print( n ){
 		let imagePath = baseImagesPath + cat + '-' + ~~( Math.random() * 0 ) + '.jpg';
 
 		printer
-			.printImage( startImagePath )
+			// .printImage( startImagePath )
 			.printImage( imagePath )
-			.printImage( endImagePath )
+			// .printImage( endImagePath )
 			.print( () => {
 				printerReady = true;
 				console.log( 'done' );
