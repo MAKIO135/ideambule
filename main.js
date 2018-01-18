@@ -22,6 +22,10 @@ printerPort.on( 'open', () => {
 
 	printer = new Printer( printerPort, opts );
 
+serialPort.on( 'open', () => {
+	let opts = { maxPrintingDots: 10, heatingTime: 100, heatingInterval: 3, commandDelay: 3 };
+	let printer = new Printer( serialPort, opts );
+
 	printer.on( 'ready', () => {
 		printerReady = true;
 		// print( 1 );
