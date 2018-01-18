@@ -23,19 +23,6 @@
         <link rel="stylesheet" href="css/style.min.css">
     </head>
     <body>
-        <svg style="display:none;" height="0" xmlns="http://www.w3.org/2000/svg">
-            <filter id="drop-shadow">
-                <feGaussianBlur in="SourceAlpha" stdDeviation="12"/>
-                <feOffset dx="0" dy="0" result="offsetblur"/>
-                <feFlood flood-color="rgba(255,255,255,0.8)"/>
-                <feComposite in2="offsetblur" operator="in"/>
-                <feMerge>
-                    <feMergeNode/>
-                    <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-            </filter>
-        </svg>
-
         <div class="background" class="hidden">
             <div id="m5" class="timeRow">
                 <div class="row"></div>
@@ -52,13 +39,24 @@
         </div>
 
         <div id="card">
-            <div id="variable">
-
+            <div id="cardContent">
+                <!-- splashScreen -->
             </div>
 
-            <div id="fixed">
-                <img src="data/icon_arrow_prev.png" alt="">
+            <div id="audioUI" style="display:none">
+                <img class="prev shadowed" src="data/icon_previous.png">
+                <img class="play shadowed" src="data/icon_play.png">
+                <img class="next shadowed" src="data/icon_next.png">
+                <audio src="" controls></audio>
             </div>
+
+            <div id="videoUI"></div>
+
+            <img id="dislikeSelected" src="data/icon_dislike_selected.png" class="hidden">
+            <img id="dislike" src="data/icon_dislike_able.png" class="hidden">
+            <img id="favSelected" src="data/icon_favorite_disable.png" class="hidden">
+            <img id="fav" src="data/icon_favorite_able.png" class="hidden">
+            <img id="back" src="data/icon_arrow_prev.png" class="hidden shadowed">
         </div>
 
         <div id="timerScreen">
@@ -66,8 +64,8 @@
         </div>
 
         <div id="ui" class="hidden">
-            <img id="arrow_up" class="horizontalAlign" src="data/icon_arrow_up.png">
-            <img id="arrow_down" class="horizontalAlign" src="data/icon_arrow_down.png">
+            <img id="arrow_up" class="horizontalAlign shadowed" src="data/icon_arrow_up.png">
+            <img id="arrow_down" class="horizontalAlign shadowed" src="data/icon_arrow_down.png">
         </div>
 
         <img id="timerImg" class="verticalAlign hidden shadowed" src="data/icon_sablier_able.png">
@@ -79,7 +77,7 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" charset="utf-8"></script>
         <script src="http://hammerjs.github.io/dist/hammer.min.js" charset="utf-8"></script>
         <script src="/js/shuffleArray.js" charset="utf-8"></script>
-		<script src="js/main.js"></script>
+		<!-- <script src="js/main.js"></script> -->
 		<script src="js/createUI.js"></script>
     </body>
 </html>
