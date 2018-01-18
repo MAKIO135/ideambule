@@ -29,9 +29,9 @@ printerPort.on( 'open', () => {
 } );
 
 arduinoPort.on( 'open', () => {
-	arduinoPort.on('data', function (data) {
-		console.log('Data:', data);
-	});
+	arduinoPort.on('data', data => {
+		console.log( 'Data:', data );
+	} );
 } );
 
 function print( n ){
