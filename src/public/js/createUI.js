@@ -255,3 +255,48 @@ addEventListener( 'load', e => {
         } );
     } )();
 } );
+
+let angle = -Math.PI/2;
+
+function setup(){
+    let canvas = createCanvas( 550, 550 );
+    canvas.parent( 'canvasContainer' );
+}
+
+function draw(){
+    if( mouseIsPressed && dist( mouseX, mouseY, width / 2, height / 2 ) < 270 ){
+        angle = atan2(mouseY - height / 2, mouseX - width / 2);
+        console.log( angle );
+
+        clear();
+
+        translate(width / 2, height / 2);
+
+        push();
+        // rotate( -PI/2 );
+        // drawingContext.shadowBlur = 5;
+        // drawingContext.shadowColor = 'dark-grey';
+        // drawingContext.shadowOffsetX = 0;
+        // drawingContext.shadowOffSetY = 0;
+        noStroke();
+        fill( 80, 100 );
+        for( let a = -Math.PI/2; a < angle; a += 0.01 ){
+            let x = cos( a )*243;
+            let y = sin( a )*243;
+            ellipse( x, y, 30 );
+        }
+        pop();
+
+        push();
+        rotate( angle );
+        drawingContext.shadowBlur = 10;
+        drawingContext.shadowColor = 'white';
+        drawingContext.shadowOffsetX = 0;
+        drawingContext.shadowOffSetY = 0;
+        fill( 255 );
+        noStroke();
+        ellipse( 243, 0, 40 );
+        pop();
+    }
+
+}
