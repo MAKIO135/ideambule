@@ -29,8 +29,14 @@ printerPort.on( 'open', () => {
 	printer = new Printer( printerPort, opts );
 
 	printer.on( 'ready', () => {
-		printerReady = true;
-		print( 1 );
+		printer
+			.printImage( endImagePath )
+			.print( () => {
+				printerReady = true;
+				console.log( '-> print done!' );
+				console.log( '-> printer ready' );
+				process.exit();
+			} );
 	} );
 } );
 
@@ -50,6 +56,8 @@ parser.on( 'data', data => {
 	console.log( 'Data:', data );
 } );
 
+
+// print function
 function print( catNum ){
 	if( printerReady ){
 		printerReady = false;
@@ -70,7 +78,8 @@ function print( catNum ){
 			.printImage( endImagePath )
 			.print( () => {
 				printerReady = true;
-				console.log( 'done' );
+				console.log( '-> print done!' );
+				console.log( '-> printer ready' );
 				process.exit();
 			} );
 	}
