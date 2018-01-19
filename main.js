@@ -52,9 +52,16 @@ arduinoPort.pipe( parser );
 arduinoPort.on( 'open', () => {
 	console.log( '-> arduinoPort opened' );
 } );
-parser.on( 'data', data => {
-	console.log( data );
-	console.log( JSON.parse( data ) );
+parser.on( 'data', str => {
+	console.log( str );
+	try{
+		let data = JSON.parse( data );
+		console.log(  data );
+		print( data.cat )
+	}
+	catch( e ){
+		console.log( 'error parsing incoming data' );
+	}
 } );
 
 

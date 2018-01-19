@@ -53,7 +53,7 @@ void loop() {
             else if ( index < 15 ) cat = 1;
             else cat = 2;
 
-            Serial.println( "{ 'cat': " + String( cat ) + "}" );
+            Serial.println( "{\"cat\":" + String( cat ) + "}" );
 
             index = 0;
             printSent = true;
