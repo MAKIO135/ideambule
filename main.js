@@ -67,8 +67,8 @@ parser.on( 'data', str => {
 
 // print function
 function print( catNum ){
-	// if( printerReady ){
-	// 	printerReady = false;
+	if( printerReady ){
+		printerReady = false;
 
 		let cat = catNum == 0 ? 'm5' :
 			catNum == 1 ? 'm15' :
@@ -91,8 +91,8 @@ function print( catNum ){
 				console.log( '-> print done!' );
 				console.log( '-> printer ready' );
 			} );
-	// }
-	// else{
-	// 	console.log( 'Waiting for printer' );
-	// }
+	}
+	else{
+		console.log( 'Waiting for printer' );
+	}
 }
