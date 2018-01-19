@@ -30,7 +30,7 @@ printerPort.on( 'open', () => {
 
 	printer.on( 'ready', () => {
 		printer
-			.printImage( endImagePath )
+			.printLine( 'printer ready' )
 			.lineFeed( 3 )
 			.print( () => {
 				printerReady = true;
