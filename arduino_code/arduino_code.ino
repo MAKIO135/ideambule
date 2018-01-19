@@ -20,7 +20,7 @@ int encoderPos = 0;
 int encoderPinALast = LOW;
 long lastInteractionTS = 0;
 
-boolean printSent = false;
+boolean printSent = true;
 
 float lerp( int a, int b, float t ) {
     return a + t * ( b - a );

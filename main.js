@@ -53,7 +53,7 @@ arduinoPort.on( 'open', () => {
 	console.log( '-> arduinoPort opened' );
 } );
 parser.on( 'data', data => {
-	console.log( 'Data:', data );
+	console.log( JSON.parse( data ) );
 } );
 
 
