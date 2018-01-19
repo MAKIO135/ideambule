@@ -42,7 +42,7 @@ printerPort.on( 'open', () => {
 
 
 // arduino port
-const arduinoPort = new SerialPort( '/dev/ttyAMA0', {
+const arduinoPort = new SerialPort( '/dev/ttyACM0', {
 	baudRate : 9600
 } );
 const parser = new parsers.Readline( {
