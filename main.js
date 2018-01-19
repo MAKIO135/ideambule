@@ -20,7 +20,7 @@ const printerPort = new SerialPort( '/dev/ttyS0', {
 printerPort.on( 'open', () => {
 	console.log( '-> printerPort opened' );
 	let opts = {
-		maxPrintingDots: 7,
+		maxPrintingDots: 10,
 		heatingTime: 200,
 		heatingInterval: 2,
 		commandDelay: 3
