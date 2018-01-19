@@ -79,6 +79,7 @@ function print( catNum ){
 			~~( Math.random() * 3 );
 
 		let imagePath = baseImagesPath + cat + '-' + n + '.jpg';
+		console.log( imagePath );
 
 		printer
 			// .printImage( startImagePath )
