@@ -55,12 +55,12 @@ arduinoPort.on( 'open', () => {
 parser.on( 'data', str => {
 	console.log( str );
 	try{
-		let data = JSON.parse( data );
-		console.log(  data );
-		print( data.cat )
+		let cat = parseInt( str );
+		console.log( { cat } );
+		print( cat );
 	}
 	catch( e ){
-		console.log( 'error parsing incoming data' );
+		console.log( 'error parsing incoming string' );
 	}
 } );
 
