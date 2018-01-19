@@ -36,7 +36,6 @@ printerPort.on( 'open', () => {
 				printerReady = true;
 				console.log( '-> print done!' );
 				console.log( '-> printer ready' );
-				process.exit();
 			} );
 	} );
 } );
@@ -82,7 +81,6 @@ function print( catNum ){
 				printerReady = true;
 				console.log( '-> print done!' );
 				console.log( '-> printer ready' );
-				process.exit();
 			} );
 	}
 	else{
