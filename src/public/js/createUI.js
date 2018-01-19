@@ -261,12 +261,25 @@ let angle = -Math.PI/2;
 function setup(){
     let canvas = createCanvas( 550, 550 );
     canvas.parent( 'canvasContainer' );
+
+    clear();
+    push();
+    translate(width / 2, height / 2);
+    rotate( angle );
+    drawingContext.shadowBlur = 10;
+    drawingContext.shadowColor = 'white';
+    drawingContext.shadowOffsetX = 0;
+    drawingContext.shadowOffSetY = 0;
+    fill( 255 );
+    noStroke();
+    ellipse( 243, 0, 40 );
+    pop();
 }
 
 function draw(){
     if( mouseIsPressed && dist( mouseX, mouseY, width / 2, height / 2 ) < 270 ){
         angle = atan2(mouseY - height / 2, mouseX - width / 2);
-        console.log( angle );
+        // console.log( angle );
 
         clear();
 
@@ -279,11 +292,11 @@ function draw(){
         // drawingContext.shadowOffsetX = 0;
         // drawingContext.shadowOffSetY = 0;
         noStroke();
-        fill( 80, 100 );
+        fill( 115, 196, 197 );
         for( let a = -Math.PI/2; a < angle; a += 0.01 ){
-            let x = cos( a )*243;
-            let y = sin( a )*243;
-            ellipse( x, y, 30 );
+            let x = cos( a )*244;
+            let y = sin( a )*244;
+            ellipse( x, y, 26 );
         }
         pop();
 
@@ -296,6 +309,19 @@ function draw(){
         fill( 255 );
         noStroke();
         ellipse( 243, 0, 40 );
+        pop();
+
+        push();
+        textAlign(CENTER,CENTER);
+        let s = map( angle, -PI/2, PI/2, 0, 60*30 );
+        let minutes = floor( s / 60 );
+        let seconds = floor( s - minutes * 60 );
+        textSize( 80 );
+        fill( 115, 196, 197 );
+        text( minutes + ':' + seconds, 0, -20 );
+        textSize( 20 );
+        fill( 115, 196, 197 );
+        text( 'min', 0, 40 );
         pop();
     }
 
