@@ -31,6 +31,7 @@ printerPort.on( 'open', () => {
 	printer.on( 'ready', () => {
 		printer
 			.printImage( endImagePath )
+			.lineFeed( 3 )
 			.print( () => {
 				printerReady = true;
 				console.log( '-> print done!' );
@@ -76,6 +77,7 @@ function print( catNum ){
 			// .printImage( startImagePath )
 			.printImage( imagePath )
 			.printImage( endImagePath )
+			.lineFeed( 3 )
 			.print( () => {
 				printerReady = true;
 				console.log( '-> print done!' );
