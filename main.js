@@ -1,17 +1,23 @@
 const SerialPort = require( 'serialport' );
-// const arduinoPort = new SerialPort( '/dev/ttyACM0', {
-// 	baudRate : 9600,
-// 	parser: SerialPort.parsers.readline( "\n" )
-// } );
-const printerPort = new SerialPort( '/dev/ttyS0', { baudRate : 19200 } );
 const Printer = require( 'thermalprinter' );
 
-let baseImagesPath = __dirname + '/images/';
-let startImagePath = baseImagesPath + 'start.jpg';
-let endImagePath = baseImagesPath + 'end.jpg';
+// arduino and thermal printer ports
+const arduinoPort = new SerialPort( '/dev/ttyAMA0', {
+	baudRate : 9600,
+	parser: SerialPort.parsers.readline( '\n' )
+} );
+const printerPort = new SerialPort( '/dev/ttyS0', {
+	baudRate : 19200
+} );
 
-let printer;
-let printerReady = false;
+// images paths
+const baseImagesPath = __dirname + '/images/',
+	startImagePath = baseImagesPath + 'start.jpg',
+	endImagePath = baseImagesPath + 'end.jpg';
+
+let printer,
+	printerReady = false;
+
 printerPort.on( 'open', () => {
 	let opts = {
 		maxPrintingDots: 10,
@@ -28,27 +34,30 @@ printerPort.on( 'open', () => {
 	} );
 } );
 
-// arduinoPort.on( 'open', () => {
-// 	arduinoPort.on('data', data => {
-// 		console.log( 'Data:', data );
-// 	} );
-// } );
+arduinoPort.on( 'open', () => {
+	arduinoPort.on('data', data => {
+		console.log( 'Data:', data );
+	} );
+} );
 
-function print( n ){
+function print( catNum ){
 	if( printerReady ){
 		printerReady = false;
 
-		let cat = n == 0 ? 'm5' :
-				  n == 1 ? 'm15' :
-				  'p15';
+		let cat = catNum == 0 ? 'm5' :
+			catNum == 1 ? 'm15' :
+			'p15';
 
-		// let imagePath = baseImagesPath + cat + '-' + ~~( Math.random() * 3 ) + '.jpg';
-		let imagePath = baseImagesPath + cat + '-' + ~~( Math.random() * 0 ) + '.jpg';
+	  	let n = catNum == 0 ? ~~( Math.random() * 5 ) :
+			catNum == 1 ? ~~( Math.random() * 3 ) :
+			~~( Math.random() * 3 );
+
+		let imagePath = baseImagesPath + cat + '-' + n + '.jpg';
 
 		printer
 			// .printImage( startImagePath )
 			.printImage( imagePath )
-			// .printImage( endImagePath )
+			.printImage( endImagePath )
 			.print( () => {
 				printerReady = true;
 				console.log( 'done' );
