@@ -13,7 +13,7 @@ struct RGB {
 };
 
 RGB c1 = { 249, 186, 162 };
-RGB c2 = { 3, 163, 180 };
+RGB c2 = { 3, 163, 240 };
 
 int index = 0;
 int encoderPos = 0;
@@ -45,7 +45,7 @@ void setup() {
 }
 
 void loop() {
-  if ( millis() - lastInteractionTS > 1000 ) {
+  if ( millis() - lastInteractionTS > 2000 ) {
     encoderPos = 0;
     if ( ! printSent ) {
       printSent = true;
@@ -55,6 +55,7 @@ void loop() {
       else cat = 2;
 
       Serial.println( "{ cat: " + String( cat ) + "}" );
+      index = 0;
     }
   }
 
@@ -68,14 +69,13 @@ void loop() {
 
     encoderPos = constrain( encoderPos, 0, 18 );
     index = map( encoderPos, 0, 18, 0, 47 );
-    //Serial.println( "index: " + String( index ) );
     lastInteractionTS = millis();
     printSent = false;
   }
   encoderPinALast = n;
 
 
-  int c = 90 + sin( millis() / 2000. ) * 70;
+  int c = 30 + sin( millis() / 1000. ) * 20;
   //Serial.println( "c:" + String(c) );
   for (int i = 1; i <= NUMPIXELS; i++ ) {
     if ( i <= index ) {
@@ -87,11 +87,12 @@ void loop() {
       strip.setPixelColor( i, strip.Color( r, g, b ) );
     }
     else {
-      strip.setPixelColor( i, strip.Color( c, c, c ) );
+      strip.setPixelColor( i, strip.Color( max( 0, c - 20 ), c, c ) );
     }
   }
   strip.show();
-  delay( 10 );
+  
+  delay( 20 );
 }
 
 
