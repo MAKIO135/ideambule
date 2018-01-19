@@ -60,7 +60,7 @@ parser.on( 'data', str => {
 		print( cat );
 	}
 	catch( e ){
-		console.log( 'error parsing incoming string' );
+		console.log( e );
 	}
 } );
 
