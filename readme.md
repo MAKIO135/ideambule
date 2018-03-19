@@ -30,6 +30,13 @@ npm -v
 ```
 git clone https://github.com/makio135/printbox.github
 ```
+#### Printbox wwiring
+- Gray = Ground
+- Purple = TX
+- Blue = RX
+
+- Black = Ground
+- White = Vcc
 
 Based on following NPM Packages:
 - [Node Serialport](https://github.com/node-serialport/node-serialport)
