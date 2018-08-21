@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "serialport": "^6.0.4",
+    "rss-parser": "^3.4.3",
+    "serialport": "^6.2.2",
     "thermalprinter": "^0.3.8"
   }
 }
