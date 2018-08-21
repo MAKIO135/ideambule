@@ -1,6 +1,9 @@
 const SerialPort = require( 'serialport' );
 const parsers = SerialPort.parsers;
 const Printer = require( 'thermalprinter' );
+var feed = {}
+// @TODO : Put this in a config file !
+const contentType = "image"; // "rss"
 
 
 // images paths
@@ -12,13 +15,38 @@ const baseImagesPath = __dirname + '/images/',
 let printer,
 	printerReady = false;
 
+// RSS Parser
+let Parser = require('rss-parser');
+let rssParser = new Parser();
+
+(async () => {
+  // @TODO : Put this URL in a config file !
+  feed = await rssParser.parseURL('https://www.erasme.org/spip.php?page=backend&id_rubrique=285');
+  console.log(feed.title);
+ 
+  feed.items.forEach(item => {
+    console.log('\n*' + item.title + '*:\n' + item.link)
+    // console.log('\guid : ' + item.guid + '\n')
+    // console.log('\nDescription : ' + item.description + '\n')
+    // console.log("\ndc:date : " + item['dc:date'])
+    // console.log("\ndc:format : " + item['dc:format'])
+    // console.log("\ndc:language : " + item['dc:language'])
+    // console.log("\ndc:creator : " + item['dc:creator'])
+    console.log('\ncontentSnippet : ' + item.contentSnippet + '\n')
+    //console.log("==========>   " + item['content:encoded'])
+  });
+})();
+
+
 // thermal printer port
+// @TODO : Put this const in a config file !
 const printerPort = new SerialPort( '/dev/ttyS0', {
 	baudRate : 19200
 } );
 
 printerPort.on( 'open', () => {
 	console.log( '-> printerPort opened' );
+	// @TODO : Put these options in a config file !
 	let opts = {
 		maxPrintingDots: 10,
 		heatingTime: 200,
@@ -27,7 +55,6 @@ printerPort.on( 'open', () => {
 	};
 
 	printer = new Printer( printerPort, opts );
-
 	printer.on( 'ready', () => {
 		printer
 			.printLine( 'printer ready' )
@@ -42,6 +69,7 @@ printerPort.on( 'open', () => {
 
 
 // arduino port
+// @TODO : Put this arduinoPort in a config file !
 const arduinoPort = new SerialPort( '/dev/ttyACM0', {
 	baudRate : 9600
 } );
@@ -57,7 +85,11 @@ parser.on( 'data', str => {
 	try{
 		let cat = parseInt( str );
 		console.log( { cat } );
-		print( cat );
+		if (contentType == "image") {
+			print( cat );
+		} else {
+			printRssItem (catNum);
+		}
 	}
 	catch( e ){
 		console.log( e );
@@ -88,4 +120,31 @@ function print( catNum ){
 				console.log( '-> print done!' );
 				console.log( '-> printer ready' );
 			} );
+}
+
+// PrintRssItem function
+function printRssItem (catNum) {
+	var nbItems = feed.items.length;
+  	let n = ~~( Math.random() * nbItems );
+  	console.log(n);
+
+	printer
+		//.indent(10)
+		.horizontalLine(16)
+		.center()
+		.big(true)
+		.bold(true)
+		//.indent(10)
+		.printLine(feed.items[n].title)
+		.bold(false)
+		.big(false)
+		//.inverse(true)
+		.right()
+		.printLine(feed.items[n].contentSnippet)
+		//.printImage(path)
+		.lineFeed( 3 )
+		.print(function() {
+			console.log('done');
+			process.exit();
+	});
 }
