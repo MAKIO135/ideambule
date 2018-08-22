@@ -134,24 +134,29 @@ function printRssItem () {
 	var nbItems = feed.items.length;
   	let n = ~~( Math.random() * nbItems );
 	console.log("Printing RSS item #" + n);
+	if( printerReady ){
+		printerReady = false;
 
-	printer
-		//.indent(10)
-		.horizontalLine(16)
-		.center()
-		.big(true)
-		.bold(true)
-		//.indent(10)
-		.printLine(feed.items[n].title)
-		.bold(false)
-		.big(false)
-		//.inverse(true)
-		.right()
-		.printLine(feed.items[n].contentSnippet)
-		//.printImage(path)
-		.lineFeed( 3 )
-		.print(function() {
-			console.log('done');
-			process.exit();
-	});
+		printer
+			.horizontalLine(32)
+			.bold(true)
+			.underline(true)
+			.center()
+			.printLine("" + feed.items[n].title)
+			.underline(false)
+			.bold(false)
+			.small(true)
+			.right()
+			.printLine("    " + feed.items[n].contentSnippet)
+			//.printImage(path)
+			.lineFeed(4)
+			.print(function() {
+			printerReady = true;
+				console.log( '-> print done!' );
+				console.log( '-> printer ready' );
+			} );
+	}
+	else{
+		console.log( 'Waiting for printer' );
+	}
 }
