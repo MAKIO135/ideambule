@@ -96,10 +96,11 @@ parser.on( 'data', str => {
 	}
 } );
 
-
 // print function
 function print( catNum ){
-	if ( printerReady ){	
+	if( printerReady ){
+		printerReady = false;
+
 		let cat = catNum == 0 ? 'm5' :
 			catNum == 1 ? 'm15' :
 			'p15';
@@ -112,6 +113,7 @@ function print( catNum ){
 		console.log( imagePath );
 
 		printer
+			// .printImage( startImagePath )
 			.printImage( imagePath )
 			.printImage( endImagePath )
 			.lineFeed( 5 )
