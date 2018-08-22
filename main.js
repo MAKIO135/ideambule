@@ -3,7 +3,7 @@ const parsers = SerialPort.parsers;
 const Printer = require( 'thermalprinter' );
 var feed = {}
 // @TODO : Put this in a config file !
-const contentType = "image"; // "rss"
+const contentType = "rss"; // "image"; // "rss"
 
 
 // images paths
@@ -140,13 +140,15 @@ function printRssItem () {
 		printer
 			.horizontalLine(32)
 			.bold(true)
-			.underline(true)
+			.big(true)
+			//.underline(true)
 			.center()
 			.printLine("" + feed.items[n].title)
-			.underline(false)
+			//.underline(false)
+			.big(false)
 			.bold(false)
 			.small(true)
-			.right()
+			.left()
 			.printLine("    " + feed.items[n].contentSnippet)
 			//.printImage(path)
 			.lineFeed(4)
