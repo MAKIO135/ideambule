@@ -88,7 +88,7 @@ parser.on( 'data', str => {
 		if (contentType == "image") {
 			print( cat );
 		} else {
-			printRssItem (catNum);
+			printRssItem ();
 		}
 	}
 	catch( e ){
@@ -123,10 +123,11 @@ function print( catNum ){
 }
 
 // PrintRssItem function
-function printRssItem (catNum) {
+// Taking a random Item of rss Feed
+function printRssItem () {
 	var nbItems = feed.items.length;
   	let n = ~~( Math.random() * nbItems );
-  	console.log(n);
+	console.log("Printing RSS item #" + n);
 
 	printer
 		//.indent(10)
