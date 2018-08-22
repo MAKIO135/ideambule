@@ -1,9 +1,9 @@
+var CONFIG        = require('./config/config.js');
+
 const SerialPort = require( 'serialport' );
 const parsers = SerialPort.parsers;
 const Printer = require( 'thermalprinter' );
 var feed = {}
-// @TODO : Put this in a config file !
-const contentType = "rss"; // "image"; // "rss"
 
 
 // images paths
@@ -19,46 +19,44 @@ let printer,
 let Parser = require('rss-parser');
 let rssParser = new Parser();
 
-(async () => {
-  // @TODO : Put this URL in a config file !
-  feed = await rssParser.parseURL('https://www.erasme.org/spip.php?page=backend&id_rubrique=285');
-  console.log(feed.title);
- 
-  feed.items.forEach(item => {
-    console.log('\n*' + item.title + '*:\n' + item.link)
-    // console.log('\guid : ' + item.guid + '\n')
-    // console.log('\nDescription : ' + item.description + '\n')
-    // console.log("\ndc:date : " + item['dc:date'])
-    // console.log("\ndc:format : " + item['dc:format'])
-    // console.log("\ndc:language : " + item['dc:language'])
-    // console.log("\ndc:creator : " + item['dc:creator'])
-    console.log('\ncontentSnippet : ' + item.contentSnippet + '\n')
-    //console.log("==========>   " + item['content:encoded'])
-  });
-})();
+//
+// RSS feeding if app is configured for this feature
+//
+if (CONFIG.app.contentType == "rss") {
+	(async () => {
+	  feed = await rssParser.parseURL(CONFIG.app.rssServer);
+	  console.log("reading rss feed");
+	 
+	  // feed.items.forEach(item => {
+	  //   console.log('\n*' + item.title + '*:\n' + item.link)
+	  //   console.log('\guid : ' + item.guid + '\n')
+	  //   console.log('\nDescription : ' + item.description + '\n')
+	  //   console.log("\ndc:date : " + item['dc:date'])
+	  //   console.log("\ndc:format : " + item['dc:format'])
+	  //   console.log("\ndc:language : " + item['dc:language'])
+	  //   console.log("\ndc:creator : " + item['dc:creator'])
+	  //   console.log('\ncontentSnippet : ' + item.contentSnippet + '\n')
+	  //   console.log("==========>   " + item['content:encoded'])
+	  // });
+	})();
+}
 
-
-// thermal printer port
+//
+// thermal printer configuration
+//
 // @TODO : Put this const in a config file !
-const printerPort = new SerialPort( '/dev/ttyS0', {
-	baudRate : 19200
-} );
+const printerPort = new SerialPort( 
+	CONFIG.printer.portName, {
+	baudRate : CONFIG.printer.baudRate
+	});
 
 printerPort.on( 'open', () => {
 	console.log( '-> printerPort opened' );
-	// @TODO : Put these options in a config file !
-	let opts = {
-		maxPrintingDots: 10,
-		heatingTime: 200,
-		heatingInterval: 2,
-		commandDelay: 3
-	};
-
-	printer = new Printer( printerPort, opts );
+	printer = new Printer( printerPort, CONFIG.printer.opts );
 	printer.on( 'ready', () => {
 		printer
 			.printLine( 'printer ready' )
-			.lineFeed( 5 )
+			.lineFeed( 4 )
 			.print( () => {
 				printerReady = true;
 				console.log( '-> print done!' );
@@ -68,11 +66,13 @@ printerPort.on( 'open', () => {
 } );
 
 
-// arduino port
-// @TODO : Put this arduinoPort in a config file !
-const arduinoPort = new SerialPort( '/dev/ttyACM0', {
-	baudRate : 9600
-} );
+//
+// arduino configuration
+// 
+const arduinoPort = new SerialPort( 
+	CONFIG.arduino.portName, {
+	baudRate : CONFIG.arduino.baudRate
+	});
 const parser = new parsers.Readline( {
 	delimiter: '\n'
 } );
@@ -85,7 +85,7 @@ parser.on( 'data', str => {
 	try{
 		let cat = parseInt( str );
 		console.log( { cat } );
-		if (contentType == "image") {
+		if (CONFIG.app.contentType == "image") {
 			print( cat );
 		} else {
 			printRssItem ();
@@ -96,24 +96,20 @@ parser.on( 'data', str => {
 	}
 } );
 
+//
 // print function
+// function that prints image contents
+//
 function print( catNum ){
 	if( printerReady ){
 		printerReady = false;
 
-		let cat = catNum == 0 ? 'm5' :
-			catNum == 1 ? 'm15' :
-			'p15';
-
-	  	let n = catNum == 0 ? ~~( Math.random() * 5 ) :
-			catNum == 1 ? ~~( Math.random() * 3 ) :
-			~~( Math.random() * 3 );
-
+		let cat = catNum == 0 ? 'm5' : catNum == 1 ? 'm15' : 'p15';
+	  	let n = catNum == 0 ? ran(5) : catNum == 1 ? ran(3) : ran(3);
 		let imagePath = baseImagesPath + cat + '-' + n + '.jpg';
 		console.log( imagePath );
 
 		printer
-			// .printImage( startImagePath )
 			.printImage( imagePath )
 			.printImage( endImagePath )
 			.lineFeed( 5 )
@@ -128,11 +124,12 @@ function print( catNum ){
 	}
 }
 
+//
 // PrintRssItem function
 // Taking a random Item of rss Feed
+//
 function printRssItem () {
-	var nbItems = feed.items.length;
-  	let n = ~~( Math.random() * nbItems );
+  	let n = ran(feed.items.length);
 	console.log("Printing RSS item #" + n);
 	if( printerReady ){
 		printerReady = false;
@@ -141,16 +138,13 @@ function printRssItem () {
 			.horizontalLine(32)
 			.bold(true)
 			.big(true)
-			//.underline(true)
 			.center()
 			.printLine("" + feed.items[n].title)
-			//.underline(false)
 			.big(false)
 			.bold(false)
 			.small(true)
 			.left()
 			.printLine("    " + feed.items[n].contentSnippet)
-			//.printImage(path)
 			.lineFeed(4)
 			.print(function() {
 			printerReady = true;
@@ -161,4 +155,12 @@ function printRssItem () {
 	else{
 		console.log( 'Waiting for printer' );
 	}
+}
+
+
+//
+// Function that gives a random int frm 0 to max
+//
+function ran(max){
+	return ~~( Math.random() * max);
 }
