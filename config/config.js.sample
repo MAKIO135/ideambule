@@ -1,0 +1,32 @@
+// 
+// Config File for this application
+// 
+// This is a sample config file, this must be copied into the same directory, as config.js
+//
+module.exports = {
+
+  // Serial Port configuration for arduino reads
+  arduino : {
+    portName : '/dev/ttyACM0',
+    baudRate : 9600
+  },
+
+  // Thermal Printer configuration
+  printer : {
+    portName : '/dev/ttyS0',
+    baudRate : 19200,
+    opts : {
+      maxPrintingDots: 10,
+      heatingTime: 200,
+      heatingInterval: 2,
+      commandDelay: 3
+    }
+  },
+
+  // Application spcific conf
+  app : {
+    contentType : "image", // Type of contents to be printed : "image" or "rss"
+    rssServer : "https://www.erasme.org/spip.php?page=backend&id_rubrique=285", // Rss server when app is in mode rss printing
+  }
+}
+
